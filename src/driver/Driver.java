@@ -7,7 +7,8 @@
 
 package driver;
 
-import model.Automobile;
+//import model.Automobile;
+import adapter.*;
 
 public class Driver {
 

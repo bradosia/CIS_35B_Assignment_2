@@ -19,9 +19,9 @@ public class Automobile implements java.io.Serializable {
 	 * Constructor
 	 */
 	public Automobile() {
-		/* We don't know the size so let's just make
-		 * it size 10 and resize it later if need be
-		 * It would have been nice to use a List<>
+		/*
+		 * We don't know the size so let's just make it size 10 and resize it later if
+		 * need be It would have been nice to use a List<>
 		 */
 		int size = 10;
 		modelName = "";
@@ -147,9 +147,9 @@ public class Automobile implements java.io.Serializable {
 		 * Constructor
 		 */
 		protected OptionSet() {
-			/* We don't know the size so let's just make
-			 * it size 12 and resize it later if need be
-			 * It would have been nice to use a List<>
+			/*
+			 * We don't know the size so let's just make it size 12 and resize it later if
+			 * need be It would have been nice to use a List<>
 			 */
 			int size = 12;
 			optionList = new Option[size];
@@ -196,8 +196,17 @@ public class Automobile implements java.io.Serializable {
 		protected Option findOptionSet(String name) {
 			Option optionObject = null;
 			for (int i = 0; i < optionList.length; i++) {
-				if (optionList[i].getName() == name) {
-					optionObject = optionList[i];
+				try {
+					if (optionList[i].getName() == name) {
+						optionObject = optionList[i];
+					}
+				} catch (NullPointerException e) {
+					/*
+					 * According to Carnegie Mellon University Software Engineering Institute You
+					 * should not catch a null pointer exception. BUT WE WILL FOR THE SAKE OF THE
+					 * ASSIGNMENT!
+					 */
+					break;
 				}
 			}
 			return optionObject;
