@@ -4,12 +4,12 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>550</x>
-      <y>690</y>
+      <x>470</x>
+      <y>1140</y>
       <w>250</w>
       <h>220</h>
     </coordinates>
-    <panel_attributes>KBB::Automobile.OptionSet.Option
+    <panel_attributes>model.Automobile.OptionSet.Option
 --
 static final long serialVersionUID
 String optionName
@@ -28,12 +28,12 @@ String toString()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>540</x>
-      <y>370</y>
+      <x>460</x>
+      <y>820</y>
       <w>270</w>
       <h>260</h>
     </coordinates>
-    <panel_attributes>KBB::Automobile.OptionSet
+    <panel_attributes>model.Automobile.OptionSet
 --
 static final long serialVersionUID
 Option optionList[]
@@ -55,12 +55,12 @@ String toString()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>70</x>
-      <y>130</y>
+      <x>0</x>
+      <y>450</y>
       <w>330</w>
       <h>140</h>
     </coordinates>
-    <panel_attributes>KBB::FileIO
+    <panel_attributes>util.FileIO
 --
 
 --
@@ -75,12 +75,12 @@ String toString()
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>0</y>
+      <x>390</x>
+      <y>450</y>
       <w>410</w>
       <h>330</h>
     </coordinates>
-    <panel_attributes>KBB::Automobile
+    <panel_attributes>model.Automobile
 --
 static final long serialVersionUID
 String modelName
@@ -106,8 +106,8 @@ String toString()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>320</y>
+      <x>590</x>
+      <y>770</y>
       <w>30</w>
       <h>70</h>
     </coordinates>
@@ -117,8 +117,8 @@ String toString()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>670</x>
-      <y>620</y>
+      <x>590</x>
+      <y>1070</y>
       <w>30</w>
       <h>90</h>
     </coordinates>
@@ -128,7 +128,76 @@ String toString()</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>70</x>
+      <x>150</x>
+      <y>210</y>
+      <w>710</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>adapter.ProxyAutomobile
+--
+model.AutomobileTable automobileTable;
+util.FileIO autoutil;
+--
+ProxyAutomobile()
+boolean updateOptionSetName(String automobileKey, String optionSetName, String nameNew)
+boolean updateOptionPrice(String automobileKey, String optionSetName, String optionName, double priceNew)
+String buildAuto(String filename)
+boolean printAuto(String automobileKey)
+boolean serialize(String automobileKey, String fileName)
+String deserialize(String fileName)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>150</x>
+      <y>390</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>570</y>
+      <w>90</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>390</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>250</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>UML Diagram
+Assignment 2
+KBB Application
+By: Branden Lee</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
       <y>0</y>
       <w>330</w>
       <h>80</h>
@@ -142,50 +211,109 @@ main(String[] args)
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
+    <id>UMLClass</id>
     <coordinates>
-      <x>230</x>
-      <y>70</y>
-      <w>30</w>
-      <h>80</h>
+      <x>0</x>
+      <y>670</y>
+      <w>330</w>
+      <h>150</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>390</x>
-      <y>150</y>
-      <w>100</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>80.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>380</x>
-      <y>70</y>
-      <w>110</w>
-      <h>90</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>90.0;70.0;10.0;10.0</additional_attributes>
+    <panel_attributes>exception.AutoException
+--
+Map&lt;Integer, String&gt; errorMessageTable;
+int errorNumber;
+String errorMessage;
+model.Automobile automobileObject;
+Log log;
+--
+AutoException(int errorNumber_)
+String fixString(int errorNumber)</panel_attributes>
+    <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>120</x>
-      <y>420</y>
-      <w>250</w>
+      <x>840</x>
+      <y>450</y>
+      <w>330</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>model.AutomobileTable
+--
+Map&lt;String, Automobile&gt; automobileTable
+--
+Automobile getByKey(String automobileKey)
+String insertOverwrite(Automobile automobileObject)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>830</x>
+      <y>390</y>
+      <w>90</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>UML Diagram
-Assignment 1
-KBB Application
-By: Branden Lee</panel_attributes>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>70</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>360</x>
+      <y>110</y>
+      <w>330</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>adapter.buildAuto
+--
+
+--
+</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>170</y>
+      <w>30</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>580</y>
+      <w>30</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>690</y>
+      <w>90</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;70.0;10.0</additional_attributes>
   </element>
 </diagram>
