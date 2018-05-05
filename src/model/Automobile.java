@@ -10,7 +10,7 @@ import java.lang.ArrayIndexOutOfBoundsException;
 
 public class Automobile implements java.io.Serializable {
 	private static final long serialVersionUID = 1362422403381823640L;
-	private String modelName;
+	private String makeName, modelName, packageName, typeName, year;
 	private double basePrice; // double is not an exact decimal.
 	private OptionSet optionSetList[];
 	private int optionSetListListLength;
@@ -23,8 +23,12 @@ public class Automobile implements java.io.Serializable {
 		 * We don't know the size so let's just make it size 10 and resize it later if
 		 * need be It would have been nice to use a List<>
 		 */
-		int size = 10;
+		int size = 20;
+		makeName = "";
 		modelName = "";
+		packageName = "";
+		typeName = "";
+		year = "";
 		basePrice = 0;
 		optionSetList = new OptionSet[size];
 		optionSetListListLength = 0;
@@ -33,7 +37,11 @@ public class Automobile implements java.io.Serializable {
 	}
 
 	public Automobile(int size) {
+		makeName = "";
 		modelName = "";
+		packageName = "";
+		typeName = "";
+		year = "";
 		basePrice = 0;
 		optionSetList = new OptionSet[size];
 		optionSetListListLength = 0;
@@ -45,8 +53,24 @@ public class Automobile implements java.io.Serializable {
 	 * Getter
 	 */
 	// Get Name of Automotive
-	public String getName() {
+	public String getMake() {
+		return makeName;
+	}
+
+	public String getModel() {
 		return modelName;
+	}
+
+	public String getPackage() {
+		return packageName;
+	}
+
+	public String getType() {
+		return typeName;
+	}
+
+	public String getYear() {
+		return year;
 	}
 
 	// Get Automotive Base Price
@@ -85,12 +109,37 @@ public class Automobile implements java.io.Serializable {
 		return optionSetObject;
 	}
 
+	public OptionSet.Option findOptionSetOption(String optionSetName, String optionName) {
+		OptionSet.Option optionObject = null;
+		OptionSet optionSetObject = findOptionSet(optionSetName);
+		if (optionSetObject != null) {
+			optionObject = optionSetObject.findOptionSet(optionName);
+		}
+		return optionObject;
+	}
+
 	/*
 	 * Setter
 	 */
 	// SetName
-	public void setName(String name) {
+	public void setMake(String name) {
+		makeName = name;
+	}
+
+	public void setModel(String name) {
 		modelName = name;
+	}
+
+	public void setPackage(String name) {
+		packageName = name;
+	}
+
+	public void setType(String name) {
+		typeName = name;
+	}
+
+	public void setYear(String name) {
+		year = name;
 	}
 
 	// Set Base Price
@@ -104,16 +153,62 @@ public class Automobile implements java.io.Serializable {
 		return optionSetListListLength++;
 	}
 
+	public boolean setOptionSetName(String optionSetName, String nameNew) {
+		boolean returnValue = false;
+		OptionSet optionSetObject = findOptionSet(optionSetName);
+		if (optionSetObject != null) {
+			optionSetObject.setName(nameNew);
+			returnValue = true;
+		}
+		return returnValue;
+	}
+
 	// Set values of OptionSet
 	public int setOptionSetOption(int indexSet, String name, double price_) {
 		int indexReturn = -1;
 		OptionSet optionSetObject = getOptionSet(indexSet);
 		indexReturn = optionSetObject.setOption(name, price_);
-		if (optionSetObject.getName().equals("Auto")) {
-			setName(name);
-			setPrice(price_);
+		if (optionSetObject.getName().equals("Make")) {
+			setMake(name);
+		} else if (optionSetObject.getName().equals("Model")) {
+			setModel(name);
+		} else if (optionSetObject.getName().equals("Package")) {
+			setPackage(name);
+		} else if (optionSetObject.getName().equals("Type")) {
+			setType(name);
+		} else if (optionSetObject.getName().equals("Year")) {
+			setYear(name);
+		} else if (optionSetObject.getName().equals("Retail Price")) {
+			/*
+			 * Price may be set by either Retail Price: 18445 or Retail Price: /18445
+			 */
+			if (name.equals("")) {
+				setPrice(price_);
+			} else {
+				setPrice(Double.parseDouble(name));
+			}
 		}
 		return indexReturn;
+	}
+
+	public boolean setOptionSetOptionName(String optionSetName, String optionName, String nameNew) {
+		boolean returnValue = false;
+		OptionSet.Option optionObject = findOptionSetOption(optionSetName, optionName);
+		if (optionObject != null) {
+			optionObject.setName(optionName);
+			returnValue = true;
+		}
+		return returnValue;
+	}
+
+	public boolean setOptionSetOptionPrice(String optionSetName, String optionName, double priceNew) {
+		boolean returnValue = false;
+		OptionSet.Option optionObject = findOptionSetOption(optionSetName, optionName);
+		if (optionObject != null) {
+			optionObject.setPrice(priceNew);
+			returnValue = true;
+		}
+		return returnValue;
 	}
 
 	/*
@@ -128,9 +223,9 @@ public class Automobile implements java.io.Serializable {
 		int i, n;
 		n = length();
 		stringBufferObject = new StringBuffer("");
-		// stringBufferObject.append("Auto Model: ").append(getName()).append(" w/ Base
-		// Price: $").append(getPrice());
-		// stringBufferObject.append(System.getProperty("line.separator"));
+		stringBufferObject.append("Year, Make, Model: ").append(getYear()).append(", ").append(getMake()).append(", ")
+				.append(getModel()).append(" and Base Price: $").append(getPrice());
+		stringBufferObject.append(System.getProperty("line.separator"));
 		for (i = 0; i < n; i++) {
 			stringBufferObject.append(optionSetList[i].toString()).append(System.getProperty("line.separator"));
 		}

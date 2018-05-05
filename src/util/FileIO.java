@@ -1,5 +1,5 @@
 //============================================================================
-// Name        : Assignment 1
+// Name        : Assignment 2
 // Author      : Branden Lee
 // Date        : 4/24/2018
 // Description : FileIO class for the KBB website application
@@ -8,8 +8,8 @@
 package util;
 
 import java.io.*;
-
 import model.Automobile;
+import exception.AutoException;
 
 public class FileIO {
 	/*
@@ -18,10 +18,11 @@ public class FileIO {
 	 * as long as no new optionSetName is found comma "," separates different
 	 * optionSetOptions slash "/" separates different option values
 	 */
-	public void read(String fileName, Automobile autoObj) {
-		String optionSetOptions;
-		String lineNext;
+	public boolean read(String fileName, Automobile autoObj) throws AutoException {
+		boolean returnValue = false;
+		String optionSetOptions, optionSetName, lineNext, optionName, optionPrice;
 		String[] optionParts;
+
 		BufferedReader reader = null;
 		int optionSetObjectIndex = -1;
 
@@ -31,8 +32,16 @@ public class FileIO {
 				// optionSet
 				if (lineNext.indexOf(':') != -1) {
 					String[] optionSetParts = lineNext.split(":");
-					optionSetOptions = optionSetParts[1];
-					optionSetObjectIndex = autoObj.setOptionSet(optionSetParts[0].trim());
+					optionSetName = optionSetParts[0].trim();
+					optionSetOptions = optionSetParts[1].trim();
+					if (optionSetName.equals("")) {
+						throw new exception.AutoException(100);
+					} else {
+						optionSetObjectIndex = autoObj.setOptionSet(optionSetName);
+					}
+					if (optionSetOptions.equals("")) {
+						throw new exception.AutoException(101);
+					}
 				} else {
 					/*
 					 * whole line is options if the optionSetName not found This allows options to
@@ -51,39 +60,54 @@ public class FileIO {
 					if (optionPart.trim().length() > 0) {
 						if (optionPart.indexOf('/') != -1) {
 							String[] optionValueParts = optionPart.split("/");
-							autoObj.setOptionSetOption(optionSetObjectIndex, optionValueParts[0].trim(),
-									Double.parseDouble(optionValueParts[1].trim()));
+							optionName = optionValueParts[0].trim();
+							optionPrice = optionValueParts[1].trim();
+							if (optionName.equals("")) {
+								new exception.AutoException(102, true); // warning
+							}
+							if (optionPrice.equals("")) {
+								new exception.AutoException(103, true); // warning
+							}
+							autoObj.setOptionSetOption(optionSetObjectIndex, optionName,
+									Double.parseDouble(optionPrice));
 						} else {
 							autoObj.setOptionSetOption(optionSetObjectIndex, optionPart.trim(), 0);
 						}
+					} else {
+						new exception.AutoException(102, true); // warning
 					}
 				}
 			}
+			returnValue = true;
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			throw new exception.AutoException(200);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new exception.AutoException(201);
 		} finally {
 			try {
 				if (reader != null) {
 					reader.close();
 				}
 			} catch (IOException e) {
+				// nothing
 			}
 		}
+		return returnValue;
 	}
 
-	public void serialize(String fileName, Automobile autoObj) {
+	public boolean serialize(String fileName, Automobile autoObj) throws AutoException {
+		boolean returnValue = false;
 		try {
 			FileOutputStream fileOut = new FileOutputStream(fileName);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(autoObj);
 			out.close();
 			fileOut.close();
-			System.out.println("Serialized data is saved in " + fileName);
-		} catch (IOException i) {
-			i.printStackTrace();
+			returnValue = true;
+		} catch (IOException e) {
+			throw new exception.AutoException(300);
 		}
+		return returnValue;
 	}
 
 	public Automobile deserialize(String fileName) {
@@ -94,7 +118,6 @@ public class FileIO {
 			autoObj = (Automobile) in.readObject();
 			in.close();
 			fileIn.close();
-			System.out.println("Deserialized data read from " + fileName);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

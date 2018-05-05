@@ -13,21 +13,24 @@ import adapter.*;
 public class Driver {
 
 	public static void main(String[] args) {
-		util.FileIO autoutil = new util.FileIO();
-		Automobile FordZTW = new Automobile();
+		BuildAuto buildAutoInterface = new BuildAuto();
 		// Build Automobile Object from a file.
-		autoutil.read("FordZTW.txt", FordZTW);
-		// Print attributes before serialization
-		FordZTW.print();
-		// Serialize the object
-		autoutil.serialize("FordZTW.data", FordZTW);
-		// Deserialize the object and read it into memory.
-		Automobile FordZTW2 = autoutil.deserialize("FordZTW.data");
-		// Print new attributes
-		if (FordZTW2 != null) {
-			FordZTW2.print();
+		String automobileKey = buildAutoInterface.buildAuto("FordZTW.txt");
+		if (automobileKey != null) {
+			// Print attributes before serialization
+			buildAutoInterface.printAuto(automobileKey);
+			// Serialize the object
+			buildAutoInterface.serialize(automobileKey, "FordZTW.data");
 		} else {
-			System.out.println("Object could not be deserialized");
+			System.out.println("Could not build automobile");
+		}
+		// Deserialize the object and read it into memory.
+		String automobileKey2 = buildAutoInterface.deserialize("FordZTW.data");
+		// Print new attributes
+		if (automobileKey2 != null) {
+			buildAutoInterface.printAuto(automobileKey2);
+		} else {
+			System.out.println("could not deserialize automobile");
 		}
 	}
 
